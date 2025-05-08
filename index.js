@@ -6,7 +6,7 @@ const { rotasPrivadas } = require('./routes/rotasPrivadas');
 const { rotasPublicas }  = require('./routes/rotasPublicas');
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT;
 
 // Middlewares
 app.use(cors({
