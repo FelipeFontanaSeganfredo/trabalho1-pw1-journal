@@ -11,16 +11,8 @@ const registerUsuarioDB = async (body) => {
         `INSERT INTO tb_usuario (nome, email, passwd_hash) VALUES ($1, $2, $3) RETURNING id_usuario, nome, email`,
         [nome, email, hash]
     );
-    
-    const token = jwt.sign(
-        { id_usuario: usuario.id, email: usuario.email },
-        process.env.JWT_SECRET || 'segredo_supersecreto',
-        { expiresIn: '1h' }
-    );
-
-    return { token, usuario: usuario = new Usuario(rows[0].id_usuario, rows[0].nome, rows[0].email)};
+    return new Usuario(rows[0].id_usuario, rows[0].nome, rows[0].email);
 };
-
 
 // Autenticação
 const loginUsuarioDB = async (body) => {
