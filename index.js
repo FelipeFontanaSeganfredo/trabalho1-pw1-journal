@@ -9,7 +9,9 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+    origin: 'https://trabalho1-pw1-frontend-react-l6is.vercel.app'
+}));
 app.use(express.json());
 
 // Rota pública inicial
