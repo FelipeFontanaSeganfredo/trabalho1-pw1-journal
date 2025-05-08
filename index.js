@@ -10,9 +10,12 @@ const PORT = process.env.PORT || 3002;
 
 // Middlewares
 app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    origin: ['https://trabalho1-pw1-frontend-react-l6is-7beunm05z.vercel.app', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 // Rota pública inicial
