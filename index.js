@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3002;
 // Middlewares
 app.use(cors({
     origin: [
-        'https://trabalho1-pw1-frontend-react-l6is.vercel.app',
+        'https://trabalho1-pw1-frontend-react.vercel.app/',
         'http://localhost:3000'
       ],
 }
