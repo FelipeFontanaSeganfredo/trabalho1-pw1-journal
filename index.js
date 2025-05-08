@@ -9,20 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 
 // Middlewares
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://trabalho1-pw1-frontend-react-l6is-7beunm05z.vercel.app');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    
-    // Responder imediatamente às solicitações OPTIONS (pre-flight)
-    if (req.method === 'OPTIONS') {
-      return res.status(200).end();
-    }
-    
-    next();
-});
-
+app.use(cors());
 app.use(express.json());
 
 // Rota pública inicial
