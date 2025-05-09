@@ -35,7 +35,65 @@ const loginUsuarioDB = async (body) => {
     return { token, usuario: new Usuario(usuario.id_usuario, usuario.nome, usuario.email) };
 };
 
+const deleteUsuarioDB = async (id_usuario) => {
+    try {
+        const { rowCount } = await pool.query(
+            'DELETE FROM tb_usuario WHERE id_usuario = $1',
+            [id_usuario]
+        );
+        if (rowCount === 0) {
+            throw `Objetivo com id ${id_usuario} não encontrado para exclusão.`;
+        }
+        return true;
+    } catch (err) {
+        throw "Erro ao excluir objetivo: " + err;
+    }
+}
+
+const updateUsuarioDB = async (id_usuario, nome, email) => {
+    try {
+        const { rows, rowCount } = await pool.query(
+            `UPDATE tb_usuario
+             SET nome = $1, email = $2
+             WHERE id_usuario = $3
+             RETURNING *`,
+            [nome, email, id_usuario]
+        );
+        if (rowCount === 0) {
+            throw `Usuario não encontrado para atualização com id ${id_usuario}.`;
+        }
+        const user = rows[0];
+        return new Usuario(user.id_usuario, user.nome, user.email);
+    } catch (err) {
+        throw "Erro ao atualizar usuário: " + err;
+    }
+}
+
+const updateSenhaDB = async (id_usuario, novaSenha) => {
+    try {
+        const hash = await bcrypt.hash(novaSenha, 10);
+        const { rowCount } = await pool.query(
+            `UPDATE tb_usuario
+             SET passwd_hash = $1
+             WHERE id_usuario = $2`,
+            [hash, id_usuario]
+        );
+
+        if (rowCount === 0) {
+            throw `Usuário não encontrado para atualização de senha com id ${id_usuario}.`;
+        }
+
+        return true;
+    } catch (err) {
+        throw "Erro ao atualizar a senha: " + err;
+    }
+};
+
+
 module.exports = {
     registerUsuarioDB,
-    loginUsuarioDB
+    loginUsuarioDB,
+    deleteUsuarioDB,
+    updateUsuarioDB,
+    updateSenhaDB
 };
