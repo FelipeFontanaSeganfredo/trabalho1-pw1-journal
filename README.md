@@ -38,7 +38,7 @@ A aplicação permite que usuários registrem suas emoções e entradas em um di
 3. Instale as dependências:
 
    ```bash
-   yarn install
+   npm install
    ```
 
 4. Configure a conexão com o banco de dados PostgreSQL no arquivo `.env` ou `config.js`.
@@ -117,7 +117,7 @@ INSERT INTO tb_emocao (descricao) VALUES
 6. Inicie a aplicação:
 
    ```bash
-   yarn start
+   node index.js
    ```
 
 A aplicação estará disponível em `http://localhost:3000`.
